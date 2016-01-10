@@ -1,0 +1,8 @@
+{ 
+  "podVersion" : "0.1.0",
+  "projectName" : "SmartRecruitersClient",
+  "modelPackage" : "/model",
+  "apiPackage" : "/api",
+  "podLicense" : "'Closed Source (C) SmartRecruiters Inc.'",  
+  "classPrefix" : "SRM"
+}

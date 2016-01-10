@@ -1,0 +1,1442 @@
+{
+    "apiVersion": "1.0.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "description": "Find and list candidates",
+                    "method": "GET",
+                    "nickname": "findCandidates",
+                    "notes": "Find candidates by params. Returns a list of candidates",
+                    "parameters": [
+                        {
+                            "description": "keyword search on all candidate fields; case insensitive; e.g. java developer",
+                            "name": "q",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "defaultValue": 10,
+                            "description": "number of elements to return. max value is 100",
+                            "enum": null,
+                            "name": "limit",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "defaultValue": 0,
+                            "description": "number of elements to skip while processing result",
+                            "enum": null,
+                            "name": "offset",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "description": "job filter to display candidates who applied for a job [id]; can be used repeatedly;",
+                            "name": "jobId",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "location keyword search which looks up a string in a candidate\u2019s location data; can be used repeatedly; case insensitive; e.g. Krakow",
+                            "name": "location",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "average rating filter to display candidates with a specific average rating (integer); can be used repeatedly; e.g. 4",
+                            "name": "averageRating",
+                            "paramType": "query",
+                            "type": "integer"
+                        },
+                        {
+                            "description": "candidate\u2019s status filter in a context of a job; can be used repeatedly; case insensitive; e.g. Hired",
+                            "enum": [
+                                "LEAD",
+                                "NEW",
+                                "IN_REVIEW",
+                                "INTERVIEW",
+                                "OFFERED",
+                                "HIRED",
+                                "REJECTED",
+                                "WITHDRAWN",
+                                "TRANSFERRED"
+                            ],
+                            "name": "status",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "description": "candidate\u2019s sub-status filter in a context of a job. Works only in a correlation with a set value for the \"status\" field.",
+                            "name": "subStatus",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "tag assigned to a candidate; can be used repeatedly; case insensitive; e.g. fluent english",
+                            "name": "tag",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "ISO8601-formatted time boundaries for the candidate update time, Format: yyyy-MM-ddTHH:mm:ss.SSSZZ",
+                            "name": "updatedAfter",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "candidate's onboarding status",
+                            "enum": [
+                                "READY_TO_ONBOARD",
+                                "ONBOARDING_SUCCESSFUL",
+                                "ONBOARDING_FAILED"
+                            ],
+                            "name": "onboardingStatus",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Find candidates by params",
+                    "type": "CandidateList"
+                }
+            ],
+            "path": "/candidates"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get a candidate's details",
+                    "method": "GET",
+                    "nickname": "getCandidate",
+                    "notes": "Get details of a Candidate with given Id. Returns a Candidate object",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get details of a Candidate with given Id",
+                    "type": "CandidateDetails"
+                }
+            ],
+            "path": "/candidates/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get list of attachments for a candidate with a given id.",
+                    "method": "GET",
+                    "nickname": "getCandidateAttachments",
+                    "notes": "Get list of attachments for a candidate with a given id. Returns a list of Candidate Attachment objects.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a candidate for which we want to retrieve a list of attachments",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get list of attachments for a candidate with a given id.",
+                    "type": "CandidateAttachments"
+                }
+            ],
+            "path": "/candidates/{id}/attachments"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get a candidate's attachment.",
+                    "method": "GET",
+                    "nickname": "getCandidateAttachment",
+                    "notes": "Get a candidate's attachment. Returns a candidate's attachment file.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a candidate for which we want to download an attachment",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of an attachment which you want to get",
+                            "name": "attachmentId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "*/*"
+                    ],
+                    "summary": "Get a candidate's attachment.",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/attachments/{attachmentId}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get a candidate's offers",
+                    "method": "GET",
+                    "nickname": "getOffers",
+                    "notes": "Get a candidate's offers",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get a candidate's offers",
+                    "type": "OfferList"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/offers"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get a candidate's offer",
+                    "method": "GET",
+                    "nickname": "getOffer",
+                    "notes": "Get a candidate's offer",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Offer",
+                            "name": "offerId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get a candidate's offer",
+                    "type": "Offer"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/offers/{offerId}"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "description": "Create a new candidate and assign to a Talent Pool",
+                    "method": "POST",
+                    "nickname": "addCandidate",
+                    "notes": "Create a new candidate and assign to a Talent Pool. Returns a created Candidate object.",
+                    "parameters": [
+                        {
+                            "description": "Candidate object that needs to be created. Please see the Model Schema on the right.",
+                            "name": "Candidate",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "Candidate"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Create a new candidate and assign to a Talent Pool",
+                    "type": "CandidateDetails"
+                }
+            ],
+            "path": "/candidates"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "description": "Parse a resume, create a candidate and assign to a Talent Pool.",
+                    "method": "POST",
+                    "nickname": "parseCVandAddCandidate",
+                    "notes": "Parse a resume, create a candidate and assign to a Talent Pool. Returns a created Candidate object.",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "The resume file to parse.",
+                            "name": "file",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "File"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Parse a resume, create a candidate and assign to a Talent Pool.",
+                    "type": "CandidateDetails"
+                }
+            ],
+            "path": "/candidates"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "description": "Attach files to a candidate\u2019s profile.",
+                    "method": "POST",
+                    "nickname": "addCandidateAttachment",
+                    "notes": "Attach files to a candidate\u2019s profile. Returns instance of the CandidateAttachment object",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a candidate for which we want to upload an attachment",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "defaultValue": "GENERIC_FILE",
+                            "description": "Type of attachment you want to upload.",
+                            "enum": [
+                                "GENERIC_FILE",
+                                "IMAGE",
+                                "URL",
+                                "AVATAR",
+                                "RESUME",
+                                "COVER_LETTER",
+                                "LOGO",
+                                "ASSESSMENT_RESULT"
+                            ],
+                            "name": "attachmentType",
+                            "paramType": "form",
+                            "required": "false",
+                            "type": "string"
+                        },
+                        {
+                            "allowMultiple": false,
+                            "description": "The file to upload.",
+                            "name": "file",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "File"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Attach files to a candidate\u2019s profile.",
+                    "type": "CandidateAttachment"
+                }
+            ],
+            "path": "/candidates/{id}/attachments"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Update a candidate's status",
+                    "method": "PUT",
+                    "nickname": "updateStatus",
+                    "notes": "Update a candidate's status",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Candidate Status to be set",
+                            "name": "CandidateStatus",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "CandidateStatus"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Update a candidate's status",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/status"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Update a candidate's status on primary assignment",
+                    "method": "PUT",
+                    "nickname": "updatePrimaryStatus",
+                    "notes": "Update a candidate's status on primary assignment",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Candidate Status to be set",
+                            "name": "CandidateStatus",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "CandidateStatus"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Update a candidate's status on primary assignment",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/status"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Status History",
+                    "method": "GET",
+                    "nickname": "getStatusHistory",
+                    "notes": "Status History",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Status History",
+                    "type": "CandidateStatusHistoryList"
+                }
+            ],
+            "path": "/candidates/{id}/status/history"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get candidate fields' values for a candidate",
+                    "method": "GET",
+                    "nickname": "getCandidateProperties",
+                    "notes": "Returns candidate fields' values for a candidate.<br /><br />Endpoint returns <pre lang=\"javascript\">{}</pre> when there is no value set for a field.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "context for candidate properties to display",
+                            "enum": [
+                                "PROFILE",
+                                "OFFER_FORM",
+                                "HIRE_FORM"
+                            ],
+                            "name": "context",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get candidate fields' values for a candidate",
+                    "type": "CandidateProperties"
+                }
+            ],
+            "path": "/candidates/{id}/properties"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get candidate fields' values for a candidate's job",
+                    "method": "GET",
+                    "nickname": "getCandidateJobsProperties",
+                    "notes": "Returns candidate fields' values for a candidates' job.<br /><br />Endpoint returns <pre lang=\"javascript\">{}</pre> when there is no value set for a field.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "context for candidate properties to display",
+                            "enum": [
+                                "PROFILE",
+                                "OFFER_FORM",
+                                "HIRE_FORM"
+                            ],
+                            "name": "context",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get candidate fields' values for a candidate's job ",
+                    "type": "CandidateProperties"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/properties"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Add/update candidate property value",
+                    "method": "PUT",
+                    "nickname": "updateCandidateProperties",
+                    "notes": "Add (if doesn't exist) or update (if already exists) a candidate property value for the candidate. <br/><br/>Below you can find a list of value examples, dependent on different candidate property types.<ul>    <li><b>TEXT</b><br/>        <pre lang=\"javascript\">{ \"value\": \"Example text\" }        </pre>    </li>    <li><b>SINGLE_SELECT</b><br/>        <pre lang=\"javascript\">{ \"value\": \"f6fe768f-b5e6-4794-9938-c2f42ab0a572\" }        </pre>        Value has to be a valid property value id    </li>    <li><b>NUMBER, PERCENT</b><br/>        <pre lang=\"javascript\">{ \"value\": 42 }        </pre>    </li>    <li><b>USER</b><br/>        <pre lang=\"javascript\">{ \"value\": \"50fe861de4b00265edec6775\" }        </pre>        Value has to be a valid user id    </li>    <li><b>DATE</b><br/>        <pre lang=\"javascript\">{ \"value\": \"2015-11-17T23:00:00.000Z\" }        </pre>    </li>    <li><b>BOOLEAN</b><br/>        <pre lang=\"javascript\">{ \"value\": true }        </pre>    </li>    <li><b>CURRENCY</b><br/>        <pre lang=\"javascript\">{  \"value\":{\n       \"code\": \"GBP\", \n       \"value\": 23232 \n   }\n}        </pre>    </li></ul><br />To reset a value for any of the above types, please pass <br /><pre lang=\"javascript\">{}</pre>",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Candidate Property",
+                            "name": "propertyId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Input value of the candidate property.",
+                            "name": "CandidatePropertyInputValue",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "CandidatePropertyInputValue"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Add/update candidate property value",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/properties/{propertyId}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Add/update candidate property value for job",
+                    "method": "PUT",
+                    "nickname": "updateCandidateJobsProperties",
+                    "notes": "Add (if doesn't exist) or update (if already exists) a candidate property value for the candidates' job. <br/><br/>Below you can find a list of value examples, dependent on different candidate property types.<ul>    <li><b>TEXT</b><br/>        <pre lang=\"javascript\">{ \"value\": \"Example text\" }        </pre>    </li>    <li><b>SINGLE_SELECT</b><br/>        <pre lang=\"javascript\">{ \"value\": \"f6fe768f-b5e6-4794-9938-c2f42ab0a572\" }        </pre>        Value has to be a valid property value id    </li>    <li><b>NUMBER, PERCENT</b><br/>        <pre lang=\"javascript\">{ \"value\": 42 }        </pre>    </li>    <li><b>USER</b><br/>        <pre lang=\"javascript\">{ \"value\": \"50fe861de4b00265edec6775\" }        </pre>        Value has to be a valid user id    </li>    <li><b>DATE</b><br/>        <pre lang=\"javascript\">{ \"value\": \"2015-11-17T23:00:00.000Z\" }        </pre>    </li>    <li><b>BOOLEAN</b><br/>        <pre lang=\"javascript\">{ \"value\": true }        </pre>    </li>    <li><b>CURRENCY</b><br/>        <pre lang=\"javascript\">{  \"value\":{\n       \"code\": \"GBP\", \n       \"value\": 23232 \n   }\n}        </pre>    </li></ul><br />To reset a value for any of the above types, please pass <br /><pre lang=\"javascript\">{}</pre>",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Candidate Property",
+                            "name": "propertyId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Input value of the candidate property.",
+                            "name": "CandidatePropertyInputValue",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "CandidatePropertyInputValue"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Add/update candidate property value",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/properties/{propertyId}"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOnboardingStatus",
+                    "notes": "Get Onboarding Status for a candidate.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get Onboarding Status for a candidate",
+                    "type": "OnboardingStatusInfo"
+                }
+            ],
+            "path": "/candidates/{id}/onboardingStatus"
+        },
+        {
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getOnboardingStatusForJob",
+                    "notes": "Get Onboarding Status for a candidate associated with given job.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get Onboarding Status for a candidate associated with given job",
+                    "type": "OnboardingStatusInfo"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/onboardingStatus"
+        },
+        {
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "setOnboardingStatus",
+                    "notes": "Set Onboarding Status for a candidate. Accepts one of the following values: READY_TO_ONBOARD, ONBOARDING_SUCCESSFUL, ONBOARDING_FAILED.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Onboarding status input value.",
+                            "name": "OnboardingStatusInfo",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "OnboardingStatusInfo"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Set Onboarding Status for a candidate",
+                    "type": "void"
+                }
+            ],
+            "path": "/candidates/{id}/onboardingStatus"
+        },
+        {
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "setOnboardingStatusForJob",
+                    "notes": "Sets Onboarding Status for a candidate associated with given job.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a Candidate",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Onboarding status input value.",
+                            "name": "OnboardingStatusInfo",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "OnboardingStatusInfo"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Sets Onboarding Status for a candidate associated with given job",
+                    "type": "OnboardingStatusInfo"
+                }
+            ],
+            "path": "/candidates/{id}/jobs/{jobId}/onboardingStatus"
+        }
+    ],
+    "basePath": "https://api.smartrecruiters.com",
+    "description": "Candidate API",
+    "models": {
+        "Action": {
+            "id": "Actions",
+            "properties": {
+                "method": {
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "OPTIONS",
+                        "DELETE",
+                        "HEAD",
+                        "CONNECT"
+                    ],
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Actions": {
+            "id": "Actions",
+            "properties": {
+              "_action": {
+                  "$ref": "Action"
+              }
+              
+            },
+            "patternProperties": {
+                ".*": {
+                    "$ref": "Action"
+                }
+            },
+            "type": "object"
+        },
+        "Candidate": {
+            "id": "Candidate",
+            "properties": {
+                "education": {
+                    "items": {
+                        "$ref": "CandidateEducation"
+                    },
+                    "type": "array"
+                },
+                "email": {
+                    "format": "email",
+                    "type": "string"
+                },
+                "experience": {
+                    "items": {
+                        "$ref": "CandidateExperience"
+                    },
+                    "type": "array"
+                },
+                "firstName": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "lastName": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "CandidateLocation"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "sourceDetails": {
+                    "$ref": "CandidateSource"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "web": {
+                    "$ref": "CandidateWebDetails"
+                }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "email"
+            ],
+            "type": "object"
+        },
+        "CandidateAssignment": {
+            "id": "CandidateAssignment",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "job": {
+                    "$ref": "CandidateJob"
+                },
+                "reasonOfRejection": {
+                    "$ref": "Dictionary"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "LEAD",
+                        "NEW",
+                        "IN_REVIEW",
+                        "INTERVIEW",
+                        "OFFERED",
+                        "HIRED",
+                        "REJECTED",
+                        "WITHDRAWN",
+                        "TRANSFERRED"
+                    ],
+                    "type": "string"
+                },
+                "subStatus": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateAttachment": {
+            "id": "CandidateAttachment",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "contentType": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateAttachments": {
+            "id": "CandidateAttachments",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "CandidateAttachment"
+                    },
+                    "type": "array"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateDetails": {
+            "id": "CandidateDetails",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "averageRating": {
+                    "type": "number"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "education": {
+                    "items": {
+                        "$ref": "CandidateEducation"
+                    },
+                    "type": "array"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "experience": {
+                    "items": {
+                        "$ref": "CandidateExperience"
+                    },
+                    "type": "array"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "boolean"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "CandidateLocation"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "primaryAssignment": {
+                    "$ref": "CandidateAssignment"
+                },
+                "secondaryAssignments": {
+                    "items": {
+                        "$ref": "CandidateAssignment"
+                    },
+                    "type": "array"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "web": {
+                    "$ref": "CandidateWebDetails"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateEducation": {
+            "id": "CandidateEducation",
+            "properties": {
+                "current": {
+                    "type": "boolean"
+                },
+                "degree": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "institution": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateExperience": {
+            "id": "CandidateExperience",
+            "properties": {
+                "company": {
+                    "type": "string"
+                },
+                "current": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateJob": {
+            "id": "CandidateJob",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "startsOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateList": {
+            "id": "CandidateList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "CandidateListElem"
+                    },
+                    "type": "array"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateListElem": {
+            "id": "CandidateListElem",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "averageRating": {
+                    "type": "number"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "boolean"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "CandidateLocation"
+                },
+                "primaryAssignment": {
+                    "$ref": "CandidateAssignment"
+                },
+                "secondaryAssignments": {
+                    "items": {
+                        "$ref": "CandidateAssignment"
+                    },
+                    "type": "array"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateLocation": {
+            "id": "CandidateLocation",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "country": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "countryCode": {
+                    "maxLength": 2,
+                    "minLength": 2,
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "regionCode": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateProperties": {
+            "id": "CandidateProperties",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "CandidateProperty"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateProperty": {
+            "id": "CandidateProperty",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "BOOLEAN",
+                        "COUNTRY",
+                        "CURRENCY",
+                        "DATE",
+                        "NUMBER",
+                        "PERCENT",
+                        "REGION",
+                        "TEXT",
+                        "USER",
+                        "SINGLE_SELECT"
+                    ],
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "label",
+                "type",
+                "value"
+            ],
+            "type": "object"
+        },
+        "CandidatePropertyInputValue": {
+            "id": "CandidatePropertyInputValue",
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateSource": {
+            "id": "CandidateSource",
+            "properties": {
+                "sourceId": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "sourceTypeId": {
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "sourceTypeId",
+                "sourceId"
+            ],
+            "type": "object"
+        },
+        "CandidateStatus": {
+            "id": "CandidateStatus",
+            "properties": {
+                "startsOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "LEAD",
+                        "NEW",
+                        "IN_REVIEW",
+                        "INTERVIEW",
+                        "OFFERED",
+                        "HIRED",
+                        "REJECTED",
+                        "WITHDRAWN",
+                        "TRANSFERRED"
+                    ],
+                    "type": "string"
+                },
+                "subStatus": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "status"
+            ],
+            "type": "object"
+        },
+        "CandidateStatusHistoryList": {
+            "id": "CandidateStatusHistoryList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "CandidateStatusHistoryListElem"
+                    },
+                    "type": "array"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateStatusHistoryListElem": {
+            "id": "CandidateStatusHistoryListElem",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "changedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "LEAD",
+                        "NEW",
+                        "IN_REVIEW",
+                        "INTERVIEW",
+                        "OFFERED",
+                        "HIRED",
+                        "REJECTED",
+                        "WITHDRAWN",
+                        "TRANSFERRED"
+                    ],
+                    "type": "string"
+                },
+                "subStatus": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateWebDetails": {
+            "id": "CandidateWebDetails",
+            "properties": {
+                "facebook": {
+                    "type": "string"
+                },
+                "linkedin": {
+                    "type": "string"
+                },
+                "skype": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Dictionary": {
+            "id": "Dictionary",
+            "properties": {
+                "id": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "Offer": {
+            "id": "Offer",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "properties": {
+                    "$ref": "OfferProperties"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "OfferList": {
+            "id": "OfferList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "Offer"
+                    },
+                    "type": "array"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "OfferProperties": {
+            "id": "OfferProperties",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            },
+            "properties" : {},
+            "type": "object"
+        },
+        "OnboardingStatusInfo": {
+            "id": "OnboardingStatusInfo",
+            "properties": {
+                "onboardingStatus": {
+                    "enum": [
+                        "READY_TO_ONBOARD",
+                        "ONBOARDING_SUCCESSFUL",
+                        "ONBOARDING_FAILED"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "resourcePath": "/candidates",
+    "swaggerVersion": "1.2"
+}

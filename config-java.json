@@ -1,0 +1,10 @@
+{ 
+  "artifactVersion" : "0.1.0",
+  "projectName" : "SmartApiClient",
+  "modelPackage" : "com.smartrecruiters.api.model",
+  "apiPackage" : "com.smartrecruiters.api",
+  "groupId" : "com.smartrecruiters.api",
+  "artifactId" : "smart-api-client",
+  "podLicense" : "'Closed Source (C) SmartRecruiters Inc.'",  
+  "classPrefix" : "SRM"
+}

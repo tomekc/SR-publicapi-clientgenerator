@@ -1,0 +1,1518 @@
+{
+    "apiVersion": "1.0.0",
+    "apis": [
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "description": "Create a new candidate and assign to a give Job",
+                    "method": "POST",
+                    "nickname": "addCandidateToJob",
+                    "notes": "Create a new candidate and assign to a give Job. Returns a created Candidate object.",
+                    "parameters": [
+                        {
+                            "description": "Candidate object that needs to be created. Please see the Model Schema on the right.",
+                            "name": "Candidate",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "Candidate"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Create a new candidate and assign to a give Job",
+                    "type": "CandidateDetails"
+                }
+            ],
+            "path": "/jobs/{jobId}/candidates"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "description": "Parse a resume, create a candidate and assign to a given Job.",
+                    "method": "POST",
+                    "nickname": "parseCVandAddCandidateToJob",
+                    "notes": "Parse a resume, create a candidate and assign to a given Job. Returns a created Candidate object.",
+                    "parameters": [
+                        {
+                            "allowMultiple": false,
+                            "description": "The resume file to parse.",
+                            "name": "file",
+                            "paramType": "body",
+                            "required": true,
+                            "type": "File"
+                        },
+                        {
+                            "description": "Identifier of a Job",
+                            "name": "jobId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Parse a resume, create a candidate and assign to a given Job",
+                    "type": "CandidateDetails"
+                }
+            ],
+            "path": "/jobs/{jobId}/candidates"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Find and list jobs",
+                    "method": "GET",
+                    "nickname": "findJobs",
+                    "notes": "Find jobs by params. Returns a list of jobs.",
+                    "parameters": [
+                        {
+                            "description": "full-text search query based on a job title, location; case insensitive; e.g. java developer",
+                            "name": "q",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "defaultValue": 10,
+                            "description": "number of elements to return. max value is 100",
+                            "enum": null,
+                            "name": "limit",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "defaultValue": 0,
+                            "description": "number of elements to skip while processing result",
+                            "enum": null,
+                            "name": "offset",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "integer"
+                        },
+                        {
+                            "description": "city filter (part of the location object); can be used repeatedly; case insensitive; e.g. San Francisco; part of the Location object",
+                            "name": "city",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "department filter (department id); can be used repeatedly; case insensitive; e.g. \u201cMarketing\u201d; part of the Department object",
+                            "name": "department",
+                            "paramType": "query",
+                            "type": "string"
+                        },
+                        {
+                            "description": "ISO8601-formatted time boundaries for the job update time, Format: yyyy-MM-ddTHH:mm:ss.SSSZZ",
+                            "name": "updatedAfter",
+                            "paramType": "query",
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Find and list jobs",
+                    "type": "JobList"
+                }
+            ],
+            "path": "/jobs"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get content of a job with a given id.",
+                    "method": "GET",
+                    "nickname": "getJob",
+                    "notes": "Get content of a job with a given id. Returns a job details.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get content of a job with a given id.",
+                    "type": "JobDetails"
+                }
+            ],
+            "path": "/jobs/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get hiring team of a job with a given id.",
+                    "method": "GET",
+                    "nickname": "getHiringTeam",
+                    "notes": "Get hiring team of a job with a given id. Returns a hiring team.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get hiring team of a job with a given id.",
+                    "type": "HiringTeamMemberList"
+                }
+            ],
+            "path": "/jobs/{id}/hiring-team"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Get note of a job with a given id.",
+                    "method": "GET",
+                    "nickname": "getJobNote",
+                    "notes": "Get note of a job with a given id. Returns a note.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Get note of a job with a given id.",
+                    "type": "JobNote"
+                }
+            ],
+            "path": "/jobs/{id}/note"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "description": "Create a new job",
+                    "method": "POST",
+                    "nickname": "createJob",
+                    "notes": "Enables you to create a new jobs. This operation requires passing an instance of the Job object as part of the POST request. Returns a created job.",
+                    "parameters": [
+                        {
+                            "description": "Job object that needs to be created",
+                            "name": "Job",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "Job"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Create a new job",
+                    "type": "JobDetails"
+                }
+            ],
+            "path": "/jobs"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "application/json-patch+json"
+                    ],
+                    "description": "Update a job",
+                    "method": "PATCH",
+                    "nickname": "patchJob",
+                    "notes": "Update a job. Returns an updated job object.",
+                    "parameters": [
+                        {
+                            "description": "Identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "patch request",
+                            "name": "JSONPatch",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "JSONPatch"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Update a job",
+                    "type": "JobDetails"
+                }
+            ],
+            "path": "/jobs/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Add hiring team member of a job with a given id.",
+                    "method": "POST",
+                    "nickname": "addHiringTeamMember",
+                    "notes": "Add hiring team member of a job with a given id. Returns a hiring team member.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "HiringTeamMember object",
+                            "name": "HiringTeamMember",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "HiringTeamMember"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Add hiring team member of a job with a given id.",
+                    "type": "HiringTeamMember"
+                }
+            ],
+            "path": "/jobs/{id}/hiring-team"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Removes hiring team member of a job with a given id.",
+                    "method": "DELETE",
+                    "nickname": "removeHiringTeamMember",
+                    "notes": "Removes hiring team member of a job with a given id. Returns a hiring team member.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "identifier of an user",
+                            "name": "userId",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Removes hiring team member of a job with a given id.",
+                    "type": "void"
+                }
+            ],
+            "path": "/jobs/{id}/hiring-team/{userId}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Update note of a job with a given id.",
+                    "method": "PUT",
+                    "nickname": "updateJobNote",
+                    "notes": "Update note of a job with a given id. Note of maximum 20000 characters long is accepted. Returns a note.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "JobNote object",
+                            "name": "JobNote",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "JobNote"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Update note of a job with a given id.",
+                    "type": "JobNote"
+                }
+            ],
+            "path": "/jobs/{id}/note"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Publishes a job to internal sources (Career Pages, Job Widget, Facebook App, WordPress Plugin, Posting API) and optionally to all free job aggregators.<br />By default it's set to publish to job aggregators.<br />It reflects a Publish action available in the SmartRecruiters UI.<br />Note: Internal sources depend on a company's payment plan.",
+                    "method": "POST",
+                    "nickname": "publishJob",
+                    "notes": "Publishes a job to internal sources (Career Pages, Job Widget, Facebook App, WordPress Plugin, Posting API) and optionally to all free job aggregators.<br />By default it's set to publish to job aggregators.<br />It reflects a Publish action available in the SmartRecruiters UI.<br />Note: Internal sources depend on a company's payment plan.",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "description": "Publication object",
+                            "name": "Publication",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "Publication"
+                        }
+                    ],
+                    "summary": "Publishes a job",
+                    "type": "void"
+                }
+            ],
+            "path": "/jobs/{id}/publication"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Unpublishes a job from all sources",
+                    "method": "DELETE",
+                    "nickname": "unpublishJob",
+                    "notes": "Unpublishes a job from all sources",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "summary": "Unpublishes a job from all sources",
+                    "type": "void"
+                }
+            ],
+            "path": "/jobs/{id}/publication"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Find and list publications for a job",
+                    "method": "GET",
+                    "nickname": "findPublications",
+                    "notes": "Find and list publications for a job",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "defaultValue": true,
+                            "description": "publication status filter; when omitted, defaults to 'true' (only active publications are returned); 'false' returns active and inactive publications",
+                            "enum": [
+                                true,
+                                false
+                            ],
+                            "name": "activeOnly",
+                            "paramType": "query",
+                            "required": false,
+                            "type": "boolean"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Find and list publications for a job",
+                    "type": "PublicationList"
+                }
+            ],
+            "path": "/jobs/{id}/publication"
+        },
+        {
+            "operations": [
+                {
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "description": "Updates job",
+                    "method": "PUT",
+                    "nickname": "updateJob",
+                    "notes": "Enables you to update job. This operation requires passing an instance of the Job object as part of the PUT request. Returns an updated job.",
+                    "parameters": [
+                        {
+                            "description": "Job object that needs to be updated",
+                            "name": "Job",
+                            "paramType": "body",
+                            "required": false,
+                            "type": "Job"
+                        },
+                        {
+                            "description": "Identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Updates job",
+                    "type": "JobDetails"
+                }
+            ],
+            "path": "/jobs/{id}"
+        },
+        {
+            "operations": [
+                {
+                    "description": "Job status history",
+                    "method": "GET",
+                    "nickname": "jobStatusHistory",
+                    "notes": "Job status history",
+                    "parameters": [
+                        {
+                            "description": "identifier of a job",
+                            "name": "id",
+                            "paramType": "path",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "summary": "Job status history",
+                    "type": "JobStatusHistoryList"
+                }
+            ],
+            "path": "/jobs/{id}/status/history"
+        }
+    ],
+    "basePath": "https://api.smartrecruiters.com",
+    "description": "Job API",
+    "models": {
+        "Action": {
+            "id": "Actions",
+            "properties": {
+                "method": {
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "OPTIONS",
+                        "DELETE",
+                        "HEAD",
+                        "CONNECT"
+                    ],
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Actions": {
+            "id": "Actions",
+            "patternProperties": {
+                ".*": {
+                    "$ref": "Action"
+                }
+            },
+            "properties" : {},
+            "type": "object"
+        },
+        "Candidate": {
+            "id": "Candidate",
+            "properties": {
+                "education": {
+                    "items": {
+                        "$ref": "CandidateEducation"
+                    },
+                    "type": "array"
+                },
+                "email": {
+                    "format": "email",
+                    "type": "string"
+                },
+                "experience": {
+                    "items": {
+                        "$ref": "CandidateExperience"
+                    },
+                    "type": "array"
+                },
+                "firstName": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "lastName": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "CandidateLocation"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "sourceDetails": {
+                    "$ref": "CandidateSource"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "web": {
+                    "$ref": "CandidateWebDetails"
+                }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "email"
+            ],
+            "type": "object"
+        },
+        "CandidateAssignment": {
+            "id": "CandidateAssignment",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "job": {
+                    "$ref": "CandidateJob"
+                },
+                "reasonOfRejection": {
+                    "$ref": "Dictionary"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "LEAD",
+                        "NEW",
+                        "IN_REVIEW",
+                        "INTERVIEW",
+                        "OFFERED",
+                        "HIRED",
+                        "REJECTED",
+                        "WITHDRAWN",
+                        "TRANSFERRED"
+                    ],
+                    "type": "string"
+                },
+                "subStatus": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateDetails": {
+            "id": "CandidateDetails",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "averageRating": {
+                    "type": "number"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "education": {
+                    "items": {
+                        "$ref": "CandidateEducation"
+                    },
+                    "type": "array"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "experience": {
+                    "items": {
+                        "$ref": "CandidateExperience"
+                    },
+                    "type": "array"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "boolean"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "CandidateLocation"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "primaryAssignment": {
+                    "$ref": "CandidateAssignment"
+                },
+                "secondaryAssignments": {
+                    "items": {
+                        "$ref": "CandidateAssignment"
+                    },
+                    "type": "array"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "web": {
+                    "$ref": "CandidateWebDetails"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateEducation": {
+            "id": "CandidateEducation",
+            "properties": {
+                "current": {
+                    "type": "boolean"
+                },
+                "degree": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "institution": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateExperience": {
+            "id": "CandidateExperience",
+            "properties": {
+                "company": {
+                    "type": "string"
+                },
+                "current": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateJob": {
+            "id": "CandidateJob",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "startsOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateLocation": {
+            "id": "CandidateLocation",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "country": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "countryCode": {
+                    "maxLength": 2,
+                    "minLength": 2,
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "regionCode": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CandidateSource": {
+            "id": "CandidateSource",
+            "properties": {
+                "sourceId": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "sourceTypeId": {
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "sourceTypeId",
+                "sourceId"
+            ],
+            "type": "object"
+        },
+        "CandidateWebDetails": {
+            "id": "CandidateWebDetails",
+            "properties": {
+                "facebook": {
+                    "type": "string"
+                },
+                "linkedin": {
+                    "type": "string"
+                },
+                "skype": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Compensation": {
+            "id": "Compensation",
+            "properties": {
+                "currency": {
+                    "type": "string"
+                },
+                "max": {
+                    "type": "integer"
+                },
+                "min": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "Dictionary": {
+            "id": "Dictionary",
+            "properties": {
+                "id": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "HiringTeamMember": {
+            "id": "HiringTeamMember",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "role": {
+                    "enum": [
+                        "HIRING_MANAGER",
+                        "INTERVIEW_TEAM",
+                        "RECRUITER",
+                        "EXECUTIVE",
+                        "COORDINATOR"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "role"
+            ],
+            "type": "object"
+        },
+        "HiringTeamMemberList": {
+            "id": "HiringTeamMemberList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "HiringTeamMember"
+                    },
+                    "type": "array"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "JSONPatch": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "definitions": {
+                "add": {
+                    "description": "add operation. Value can be any JSON value.",
+                    "properties": {
+                        "op": {
+                            "enum": [
+                                "add"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "value"
+                    ]
+                },
+                "copy": {
+                    "description": "copy operation. \"from\" is a JSON Pointer.",
+                    "properties": {
+                        "from": {
+                            "$ref": "JSONPatch#/definitions/jsonPointer"
+                        },
+                        "op": {
+                            "enum": [
+                                "copy"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "from"
+                    ]
+                },
+                "jsonPointer": {
+                    "pattern": "^(/[^/~]*(~[01][^/~]*)*)*$",
+                    "type": "string"
+                },
+                "move": {
+                    "description": "move operation. \"from\" is a JSON Pointer.",
+                    "properties": {
+                        "from": {
+                            "$ref": "JSONPatch#/definitions/jsonPointer"
+                        },
+                        "op": {
+                            "enum": [
+                                "move"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "from"
+                    ]
+                },
+                "oneOperation": {
+                    "oneOf": [
+                        {
+                            "$ref": "JSONPatch#/definitions/add"
+                        },
+                        {
+                            "$ref": "JSONPatch#/definitions/remove"
+                        },
+                        {
+                            "$ref": "JSONPatch#/definitions/replace"
+                        },
+                        {
+                            "$ref": "JSONPatch#/definitions/move"
+                        },
+                        {
+                            "$ref": "JSONPatch#/definitions/copy"
+                        },
+                        {
+                            "$ref": "JSONPatch#/definitions/test"
+                        }
+                    ]
+                },
+                "remove": {
+                    "description": "remove operation. Only a path is specified.",
+                    "properties": {
+                        "op": {
+                            "enum": [
+                                "remove"
+                            ]
+                        }
+                    }
+                },
+                "replace": {
+                    "description": "replace operation. Value can be any JSON value.",
+                    "properties": {
+                        "op": {
+                            "enum": [
+                                "replace"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "value"
+                    ]
+                },
+                "test": {
+                    "description": "test operation. Value can be any JSON value.",
+                    "properties": {
+                        "op": {
+                            "enum": [
+                                "test"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "value"
+                    ]
+                }
+            },
+            "description": "A JSON Schema describing a JSON Patch",
+            "properties" : {},
+            "id": "JSONPatch",
+            "items": {
+                "allOf": [
+                    {
+                        "description": "Members common to all operations",
+                        "properties": {
+                            "path": {
+                                "$ref": "JSONPatch#/definitions/jsonPointer"
+                            }
+                        },
+                        "required": [
+                            "op",
+                            "path"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "JSONPatch#/definitions/oneOperation"
+                    }
+                ],
+                "description": "one JSON Patch operation"
+            },
+            "notes": [
+                "Only required members are accounted for, other members are ignored"
+            ],
+            "title": "JSON Patch",
+            "type": "array"
+        },
+        "Job": {
+            "id": "Job",
+            "properties": {
+                "compensation": {
+                    "$ref": "Compensation"
+                },
+                "department": {
+                    "$ref": "JobDepartment"
+                },
+                "eeoCategory": {
+                    "$ref": "Dictionary"
+                },
+                "experienceLevel": {
+                    "$ref": "Dictionary"
+                },
+                "function": {
+                    "$ref": "Dictionary"
+                },
+                "industry": {
+                    "$ref": "Dictionary"
+                },
+                "jobAd": {
+                    "$ref": "JobAd"
+                },
+                "location": {
+                    "$ref": "Location"
+                },
+                "properties": {
+                    "items": {
+                        "$ref": "JobProperty"
+                    },
+                    "type": "array"
+                },
+                "refNumber": {
+                    "type": "string"
+                },
+                "targetHiringDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "template": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "typeOfEmployment": {
+                    "$ref": "Dictionary"
+                }
+            },
+            "required": [
+                "title",
+                "function",
+                "industry",
+                "experienceLevel",
+                "location"
+            ],
+            "type": "object"
+        },
+        "JobAd": {
+            "id": "JobAd",
+            "properties": {
+                "sections": {
+                    "$ref": "JobAdSections"
+                }
+            },
+            "type": "object"
+        },
+        "JobAdSection": {
+            "id": "JobAdSection",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "JobAdSections": {
+            "id": "JobAdSections",
+            "properties": {
+                "additionalInformation": {
+                    "$ref": "JobAdSection"
+                },
+                "companyDescription": {
+                    "$ref": "JobAdSection"
+                },
+                "jobDescription": {
+                    "$ref": "JobAdSection"
+                },
+                "qualifications": {
+                    "$ref": "JobAdSection"
+                }
+            },
+            "type": "object"
+        },
+        "JobCreator": {
+            "id": "JobCreator",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "JobDepartment": {
+            "id": "JobDepartment",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "JobDetails": {
+            "id": "JobDetails",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "compensation": {
+                    "$ref": "Compensation"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "creator": {
+                    "$ref": "JobCreator"
+                },
+                "department": {
+                    "$ref": "JobDepartment"
+                },
+                "eeoCategory": {
+                    "$ref": "Dictionary"
+                },
+                "experienceLevel": {
+                    "$ref": "Dictionary"
+                },
+                "function": {
+                    "$ref": "Dictionary"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "industry": {
+                    "$ref": "Dictionary"
+                },
+                "jobAd": {
+                    "$ref": "JobAd"
+                },
+                "location": {
+                    "$ref": "Location"
+                },
+                "properties": {
+                    "items": {
+                        "$ref": "JobProperty"
+                    },
+                    "type": "array"
+                },
+                "refNumber": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "CREATED",
+                        "SOURCING",
+                        "FILLED",
+                        "CANCELLED",
+                        "INTERVIEW",
+                        "OFFER",
+                        "OTHER"
+                    ],
+                    "type": "string"
+                },
+                "targetHiringDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "template": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "typeOfEmployment": {
+                    "$ref": "Dictionary"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "JobList": {
+            "id": "JobList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "JobListElem"
+                    },
+                    "type": "array"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "JobListElem": {
+            "id": "JobListElem",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "createdOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "Location"
+                },
+                "refNumber": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "CREATED",
+                        "SOURCING",
+                        "FILLED",
+                        "CANCELLED",
+                        "INTERVIEW",
+                        "OFFER",
+                        "OTHER"
+                    ],
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "JobNote": {
+            "id": "JobNote",
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content"
+            ],
+            "type": "object"
+        },
+        "JobProperty": {
+            "id": "JobProperty",
+            "properties": {
+                "id": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "value": {
+                    "$ref": "JobPropertyValue"
+                }
+            },
+            "required": [
+                "id",
+                "value"
+            ],
+            "type": "object"
+        },
+        "JobPropertyValue": {
+            "id": "JobPropertyValue",
+            "properties": {
+                "id": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "JobStatusHistoryList": {
+            "id": "JobStatusHistoryList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "JobStatusHistoryListElem"
+                    },
+                    "type": "array"
+                },
+                "totalFound": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "JobStatusHistoryListElem": {
+            "id": "JobStatusHistoryListElem",
+            "properties": {
+                "actions": {
+                    "$ref": "Actions"
+                },
+                "changedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "CREATED",
+                        "SOURCING",
+                        "FILLED",
+                        "CANCELLED",
+                        "INTERVIEW",
+                        "OFFER",
+                        "OTHER"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Location": {
+            "id": "Location",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "country": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "countryCode": {
+                    "maxLength": 2,
+                    "minLength": 2,
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "regionCode": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "city",
+                "countryCode"
+            ],
+            "type": "object"
+        },
+        "Publication": {
+            "id": "Publication",
+            "properties": {
+                "aggregators": {
+                    "default": true,
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "PublicationList": {
+            "id": "PublicationList",
+            "properties": {
+                "content": {
+                    "items": {
+                        "$ref": "PublicationListItem"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "content"
+            ],
+            "type": "object"
+        },
+        "PublicationListItem": {
+            "id": "PublicationListItem",
+            "properties": {
+                "publishedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "sourceName": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "unpublishedOn": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "sourceName",
+                "type",
+                "publishedOn"
+            ],
+            "type": "object"
+        }
+    },
+    "resourcePath": "/jobs",
+    "swaggerVersion": "1.2"
+}
