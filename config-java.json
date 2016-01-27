@@ -4,7 +4,7 @@
   "modelPackage" : "com.smartrecruiters.api.model",
   "apiPackage" : "com.smartrecruiters.api",
   "groupId" : "com.smartrecruiters.api",
-  "artifactId" : "smart-api-client",
+  "artifactId" : "client-java",
   "podLicense" : "'Closed Source (C) SmartRecruiters Inc.'",  
   "classPrefix" : "SRM"
 }
