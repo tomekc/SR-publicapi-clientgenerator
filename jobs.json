@@ -613,7 +613,7 @@
                     "$ref": "CandidateJob"
                 },
                 "reasonOfRejection": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "source": {
                     "type": "string"
@@ -870,8 +870,8 @@
             },
             "type": "object"
         },
-        "Dictionary": {
-            "id": "Dictionary",
+        "DictionaryItem": {
+            "id": "DictionaryItem",
             "properties": {
                 "id": {
                     "minLength": 1,
@@ -1078,16 +1078,16 @@
                     "$ref": "JobDepartment"
                 },
                 "eeoCategory": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "experienceLevel": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "function": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "industry": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "jobAd": {
                     "$ref": "JobAd"
@@ -1115,7 +1115,7 @@
                     "type": "string"
                 },
                 "typeOfEmployment": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 }
             },
             "required": [
@@ -1216,19 +1216,19 @@
                     "$ref": "JobDepartment"
                 },
                 "eeoCategory": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "experienceLevel": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "function": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "id": {
                     "type": "string"
                 },
                 "industry": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "jobAd": {
                     "$ref": "JobAd"
@@ -1268,7 +1268,7 @@
                     "type": "string"
                 },
                 "typeOfEmployment": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "updatedOn": {
                     "format": "date-time",

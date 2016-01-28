@@ -863,7 +863,7 @@
                     "$ref": "CandidateJob"
                 },
                 "reasonOfRejection": {
-                    "$ref": "Dictionary"
+                    "$ref": "DictionaryItem"
                 },
                 "source": {
                     "type": "string"
@@ -1349,8 +1349,8 @@
             },
             "type": "object"
         },
-        "Dictionary": {
-            "id": "Dictionary",
+        "DictionaryItem": {
+            "id": "DictionaryItem",
             "properties": {
                 "id": {
                     "minLength": 1,
